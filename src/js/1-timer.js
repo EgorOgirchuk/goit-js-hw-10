@@ -10,12 +10,7 @@ const input = document.querySelector('#datetime-picker');
 const button = document.querySelector('[data-start]');
 button.disabled = true;
 
-flatpickr('#datetime-picker', options);
-
-let userSelectetdDate = null;
-let currentDate = null;
-
-const options = {
+flatpickr('#datetime-picker', {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
@@ -37,7 +32,10 @@ const options = {
       return;
     }
   },
-};
+});
+
+let userSelectetdDate = null;
+let currentDate = null;
 
 button.addEventListener('click', () => {
   let intervalId = setInterval(() => {
@@ -47,7 +45,7 @@ button.addEventListener('click', () => {
     if (diff <= 0) {
       clearInterval(intervalId);
       input.disabled = false;
-      button.disabled = true;
+      button.disabled = false;
       return;
     }
     const { days, hours, minutes, seconds } = convertMs(diff);
